@@ -1,0 +1,47 @@
+{
+  "class": "cTableObject",
+  "name": "NoName",
+  "guid": [
+    -1,
+    -1,
+    -1,
+    -1
+  ],
+  "parentGuid": [
+    -1,
+    -1,
+    -1,
+    -1
+  ],
+  "components": [
+    {
+      "id": 0,
+      "class": "sIdentityTransform",
+      "data": {}
+    },
+    {
+      "id": 2,
+      "class": "sObjectDataComponent",
+      "data": {
+        "m_name": "NoName"
+      }
+    },
+    {
+      "id": 40000,
+      "class": "sScriptHelperComponent",
+      "data": {}
+    },
+    {
+      "id": 310,
+      "class": "sTableComponent",
+      "data": {
+        "m_dataModel": {
+          "m_rowNum": 0,
+          "m_columnNum": 0,
+          "m_tableData": [
+          ]
+        }
+      }
+    }
+  ]
+}

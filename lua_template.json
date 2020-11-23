@@ -1,0 +1,47 @@
+{
+  "class": "cScriptObject",
+  "name": "TemplateScript",
+  "guid": [
+    -1,
+    -1,
+    -1,
+    -1
+  ],
+  "parentGuid": [
+    -1,
+    -1,
+    -1,
+    -1
+  ],
+  "components": [
+    {
+      "id": 0,
+      "class": "sIdentityTransform",
+      "data": {}
+    },
+    {
+      "id": 2,
+      "class": "sObjectDataComponent",
+      "data": {
+        "m_name": "TemplateScript"
+      }
+    },
+    {
+      "id": 19,
+      "class": "sNetworkComponent",
+      "data": {}
+    },
+    {
+      "id": 40000,
+      "class": "sScriptHelperComponent",
+      "data": {}
+    },
+    {
+      "id": 10,
+      "class": "sLuaComponent",
+      "data": {
+        "m_luaContent": ""
+      }
+    }
+  ]
+}

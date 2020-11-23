@@ -1,0 +1,40 @@
+{
+    "class": "cFolderObject",
+    "name": "Folder",
+    "guid": [
+        1567585581,
+        666060216,
+        2745251166,
+        1172406312
+    ],
+    "parentGuid": [
+        2301495294,
+        1274365006,
+        3003438828,
+        1864040556
+    ],
+    "components": [
+        {
+            "id": 0,
+            "class": "sIdentityTransform",
+            "data": {}
+        },
+        {
+            "id": 2,
+            "class": "sObjectDataComponent",
+            "data": {
+                "m_name": "Folder"
+            }
+        },
+        {
+            "id": 19,
+            "class": "sNetworkComponent",
+            "data": {}
+        },
+        {
+            "id": 40000,
+            "class": "sScriptHelperComponent",
+            "data": {}
+        }
+    ]
+}

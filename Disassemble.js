@@ -259,6 +259,20 @@ function ReplaceAllLuaData() {
     console.log('检测到Script, ModuleScript节点', n, '个')
 }
 
+function ExportCompatibilityInfo() {
+    let compatibilityInfo = {}
+    compatibilityInfo.sandbox_archive_version = smapJson.sandbox_archive_version
+    let len = smapJson.mapdata[0].ObjectsData.length
+    for (let i = 0; i < len; i++) {
+        const node = smapJson.mapdata[0].ObjectsData[i];
+        if (node.class == "cWorkspace"){
+            compatibilityInfo.archetypeWorldspace = node
+            break
+        }
+    }
+    FS.writeFileSync(Path.join(projectPath, 'compatibility_info.json'), JSON.stringify(compatibilityInfo))
+}
+
 function Disassemble(projectPath) {
 
     if (!FS.existsSync(projectPath)) {
@@ -302,6 +316,8 @@ function Disassemble(projectPath) {
     //3.3.导出 World
     ExportAllWorlds()
 
+    //4.导出兼容性信息
+    ExportCompatibilityInfo()
 }
 
 function main() {

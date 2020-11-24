@@ -406,9 +406,22 @@ async function ImportAllLuaCsv() {
     console.log(`导入了 ${nlua} 个.lua 和 ${ncsv} 个.csv 文件。`)
 }
 
-async function Assemble(projectPath) {
+function ExportCompatibilityInfo() {
+    try {
+        let compatibilityInfo = JSON.parse(FS.readFileSync(Path.join(projectPath, 'compatibility_info.json')))
+        if (compatibilityInfo.sandbox_archive_version) smapJson.sandbox_archive_version = compatibilityInfo.sandbox_archive_version
+        if (compatibilityInfo.archetypeWorldspace) smapJson.mapdata[0].ObjectsData.push(compatibilityInfo.archetypeWorldspace)
+    } catch (error) {
+        console.error(`无法读取compatibility_info.json，将采用默认配置生成smap。以后请勿删除该文件。Path:`, Path.join(projectPath, 'compatibility_info.json'), error)
+    }
+}
+
+async function Assemble() {
     //1.创建全空JSON
     smapJson = JSON.parse(FS.readFileSync('./empty_smap_template.json'))
+
+    //2.导入兼容性
+    ExportCompatibilityInfo()
 
     //3.1.导入 Resource
     ImportAllResources()
@@ -438,7 +451,7 @@ async function main() {
     smapPath = process.argv[2]
     projectPath = process.argv[3]
 
-    await Assemble(projectPath)
+    await Assemble()
 
     console.log("聚合完成，请享用！")
 }

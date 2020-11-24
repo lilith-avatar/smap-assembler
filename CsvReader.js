@@ -13,7 +13,7 @@ exports.ConvertCsvFileToOurJson = async function (csvPath) {
         // It will pass a properly decoded data to the CsvReader.
 
         inputStream
-            .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
+            .pipe(new CsvReadableStream({ parseNumbers: false, parseBooleans: false, trim: false }))
             .on('data', function (row) {
                 json.push(row)
             }).on('end', function (data) {

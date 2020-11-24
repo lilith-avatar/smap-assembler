@@ -32,7 +32,7 @@ arch和world文件里的lua数据会被清空，并填入meta信息注释。Tabl
 
 示例
 
-> node .\Disassemble.js .\test01.smap .\test01
+> node .\Disassemble.js D:\test01.smap D:\test01Project
 
 ## 聚合
 
@@ -42,7 +42,7 @@ arch和world文件里的lua数据会被清空，并填入meta信息注释。Tabl
 
 示例
 
-> node .\Assemble.js .\test01_assem.smap .\test01
+> node .\Assemble.js D:\test01.smap D:\test01Project
 
 lua、csv文件必须和正确的meta文件在一起，才能顺利导入。meta文件里是一个json，指定了节点类型和节点Guid。
 

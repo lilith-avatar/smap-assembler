@@ -1,6 +1,6 @@
 var FS = require('fs')
 var Path = require('path')
-var CsvReader = require('./CsvReader')
+var CsvUtil = require('./CsvUtil')
 
 var smapPath
 var projectPath
@@ -304,7 +304,7 @@ async function FillLuaCsv(textFilePath, metaInfo, myNode, space) {
     } else if (extname == '.csv') {
         //填入csv数据
 
-        let json = await CsvReader.ConvertCsvFileToOurJson(textFilePath)
+        let json = await CsvUtil.ConvertCsvFileToOurJson(textFilePath)
 
         //检查行列数
         let rowNum = json.length

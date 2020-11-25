@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "autodetect-decoder-stream": "^1.0.3",
-        "csv-reader": "^1.0.7"
+        "csv-reader": "^1.0.7",
+        "json2csv": "^5.0.5"
     }
 }

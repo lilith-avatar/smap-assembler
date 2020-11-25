@@ -60,8 +60,6 @@ csv同理。
 
 提取工程里的Script、ModuleScript、Table节点，导出成lua、csv文件，同时会生成meta文件。
 
-但目前不支持csv导出。请用编辑器内置的csv导出工具导出csv，然后用 ConvertNodePathNameToNodeName.js 脚本批量修改文件名为本工具所需的格式。
-
 示例
 
 > node .\Assemble.js .\test01_assem.smap .\test01
@@ -72,13 +70,9 @@ csv同理。
 
 ## 新建工程
 
-用Disassemble.js把一个正常的smap打散到目标工程目录。
+1. 用Disassemble.js把一个正常的smap打散到目标工程目录。
 
-**再用ExtractLuaCsv.js把smap里的lua、csv和meta信息提取出来，把两个文件夹名称的后缀去掉，得到Lua、Csv文件夹（重要）。但这一步里面的csv文件都是空的，需要下面两步操作。**
-
-**用编辑器内置的csv导出工具导出所有完整的csv文件；**
-
-**再用ConvertNodePathNameToNodeName.js把这些完整的csv重命名，得到名为```<节点名>.csv```的csv文件，用这些csv文件替换Csv文件夹里的csv文件。**
+1. 再用ExtractLuaCsv.js把smap里的lua、csv和meta信息提取出来，把两个文件夹名称的后缀去掉，得到Lua、Csv文件夹（重要）。
 
 现在，你就得到了一个完整的离散态的工程！
 

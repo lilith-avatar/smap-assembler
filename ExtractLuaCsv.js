@@ -1,6 +1,7 @@
 var FS = require('fs')
 var Path = require('path')
 var InvalidCharConverter = require('./InvalidCharConverter')
+var CsvUtil = require('./CsvUtil')
 
 var projectPath
 var luaPath
@@ -58,9 +59,11 @@ function CreateCsvAndMetaFile(node, tableData) {
         i++
     }
 
-    //TODO:tableData Json转csv，目前不太会
+    //tableData Json转csv
 
-    FS.writeFileSync(Path.join(csvPath, filename), "Sorry, I don't have time to export csv for you. I believe you reserved the original files.")
+    let csv = CsvUtil.JsonToOurCsv(tableData)
+
+    FS.writeFileSync(Path.join(csvPath, filename), csv)
 
     let metaInfo = {
         "class": node.class,
@@ -92,11 +95,19 @@ function Extract() {
                     }
                 })
             } else if (IsNodeTableClass(node)) {
-                node.components.forEach(comp => {
+                let tableData
+                for (let i = 0; i < node.components.length; i++) {
+                    const comp = node.components[i];
                     if (comp.class == 'sTableComponent') {
-                        CreateCsvAndMetaFile(node, comp.data.m_dataModel.m_tableData)
+                        tableData = comp.data.m_dataModel.m_tableData
+                        break
                     }
-                })
+                }
+                if (tableData) {
+                    CreateCsvAndMetaFile(node, tableData)
+                } else {
+                    console.error('Table节点里缺失tableData。节点名:', node.name)
+                }
             }
         })
     }

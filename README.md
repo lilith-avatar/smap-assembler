@@ -4,7 +4,7 @@
 
 该工具把smap打散成文件工程，或者把文件工程聚合成smap。
 
-## 第一次使用需要安装
+## 安装
 
 首先需要安装node.js环境，到[官网](https://nodejs.org/)下载某一版本即可。
 
@@ -16,11 +16,17 @@
 
 **目前不支持Terrain、Union！如果地图里有这些东西，会丢失甚至出错。**
 
+## 初始化工程
+
+> node InitialDisassemble.js <smap路径> <目标工程文件夹路径>
+
+会在目标工程文件夹里生成5~6个文件夹和1个json文件。以后这个文件夹就是你的工程了，把它放在P4、git或svn里就可以实现多人协作了。
+
 ## 打散
 
-> node .\Disassemble.js <smap路径> <目标工程文件夹路径>
+> node Disassemble.js <smap路径> <目标工程文件夹路径>
 
-会清空目标工程里的Resource、Archetype、World文件夹，不会影响Lua、Csv文件夹，不会打散出lua、csv文件。
+会覆盖目标工程里的Resource、Archetype、World文件夹，不会影响Lua、Csv文件夹，**不会导出和覆盖lua、csv文件**。
 
 资源以Resource节点为单位导入，但本地资源会附带一个.data文件，别弄丢了。
 
@@ -32,17 +38,17 @@ arch和world文件里的lua数据会被清空，并填入meta信息注释。Tabl
 
 示例
 
-> node .\Disassemble.js D:\test01.smap D:\test01Project
+> node Disassemble.js D:\test01.smap D:\test01Project
 
 ## 聚合
 
 > node .\Assemble.js <目标smap路径> <工程文件夹路径>
 
-会覆盖目标smap文件。会从Lua、Csv文件夹导入所有的lua、csv。
+会覆盖目标smap文件。除了聚合Archetype、Resource、world，还会从Lua、Csv文件夹导入所有的lua、csv。
 
 示例
 
-> node .\Assemble.js D:\test01.smap D:\test01Project
+> node Assemble.js D:\test01.smap D:\test01Project
 
 lua、csv文件必须和正确的meta文件在一起，才能顺利导入。meta文件里是一个json，指定了节点类型和节点Guid。
 
@@ -54,7 +60,7 @@ lua、csv文件必须和正确的meta文件在一起，才能顺利导入。meta
 
 csv同理。
 
-## 提取lua、csv和meta
+## 提取lua、csv和meta（不常用）
 
 > node .\ExtractLuaCsv.js <smap路径> <提取到文件夹路径>
 
@@ -64,19 +70,11 @@ csv同理。
 
 > node .\Assemble.js .\test01_assem.smap .\test01
 
-# 工作中的使用建议
-
-对于文本型节点，目前只支持Script、ModuleScript、Table节点的打散聚合，其他文本型节点的数据将会内嵌在.world，.arch文件内，无法在外部编辑。想要其他的可以跟Stephen提。
+# 工作流建议
 
 ## 新建工程
 
-1. 用Disassemble.js把一个正常的smap打散到目标工程目录。
-
-1. 再用ExtractLuaCsv.js把smap里的lua、csv和meta信息提取出来，把两个文件夹名称的后缀去掉，得到Lua、Csv文件夹（重要）。
-
-现在，你就得到了一个完整的离散态的工程！
-
-world里只放静态场景，并由一个美术制作。其他人都用Archetype、脚本制作动态内容。
+用InitialDisassemble.js把一个正常的smap打散到目标工程目录，你就得到了一个完整的离散态的工程！
 
 ## 开始工作
 

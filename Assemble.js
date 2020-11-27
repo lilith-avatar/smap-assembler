@@ -73,7 +73,7 @@ function TraverseResourceAndMakeJson(path, parentNode) {
                 smapJson.resources[0].default.push(json)
 
             } else {
-                //是资源meta信息，放在resourceCart节点，并关联parentGuid
+                //是资源壳子信息，放在resourceCart节点，并关联parentGuid
                 let node = json
                 if (parentNode) {
                     node.parentGuid = parentNode.guid
@@ -176,8 +176,8 @@ function TraverseArchetypeAndMakeJson(path, parentNode) {
     })
 }
 function ImportAllArchetypes() {
-    //重设workspace的guid
-    smapJson.mapdata[0].ObjectsData[0].guid = GenerateGuid()
+    //重设workspace的guid × 现在没必要了，再导入compatibility_info时就会继承或重置
+    //smapJson.mapdata[0].ObjectsData[0].guid = GenerateGuid()
 
     archetypeFolderJsonStr = FS.readFileSync('./archetype_folder_template.json') //文件夹Json模板
     //遍历Archetype文件夹
@@ -406,13 +406,17 @@ async function ImportAllLuaCsv() {
     console.log(`导入了 ${nlua} 个.lua 和 ${ncsv} 个.csv 文件。`)
 }
 
-function ExportCompatibilityInfo() {
+function ImportCompatibilityInfo() {
     try {
         let compatibilityInfo = JSON.parse(FS.readFileSync(Path.join(projectPath, 'compatibility_info.json')))
         if (compatibilityInfo.sandbox_archive_version) smapJson.sandbox_archive_version = compatibilityInfo.sandbox_archive_version
         if (compatibilityInfo.archetypeWorldspace) smapJson.mapdata[0].ObjectsData.push(compatibilityInfo.archetypeWorldspace)
     } catch (error) {
         console.error(`无法读取compatibility_info.json，将采用默认配置生成smap。以后请勿删除该文件。Path:`, Path.join(projectPath, 'compatibility_info.json'), error)
+        let compatibilityInfo = JSON.parse(FS.readFileSync('compatibility_info_template.json'))
+        smapJson.sandbox_archive_version = compatibilityInfo.sandbox_archive_version
+        smapJson.mapdata[0].ObjectsData.push(compatibilityInfo.archetypeWorldspace)
+        smapJson.mapdata[0].ObjectsData[0].guid = GenerateGuid()
     }
 }
 
@@ -421,7 +425,7 @@ async function Assemble() {
     smapJson = JSON.parse(FS.readFileSync('./empty_smap_template.json'))
 
     //2.导入兼容性
-    ExportCompatibilityInfo()
+    ImportCompatibilityInfo()
 
     //3.1.导入 Resource
     ImportAllResources()

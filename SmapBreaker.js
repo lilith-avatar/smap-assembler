@@ -78,6 +78,9 @@ function MakeResourceFileOrFolder(resourceNode, nodeDict, folderNodeToPathDict) 
         }
     }
 
+    //清除parentGuid，防止每次导出都变化
+    resourceNode.parentGuid = [-1, -1, -1, -1]
+
     //写入res文件
     if (FS.existsSync(path)) {
         let filenameWithGuid = filenameWithoutExt + JSON.stringify(resourceNode.guid) + '.' + resourceNode.type
@@ -158,6 +161,10 @@ function TraverseTreeAndFindArchetypeAndExport(simpleNode, curPath) {
         //不是文件夹，说明是真Archetype，整体导出
         let list = [] //该真Archetype包含的所有节点
         CollectNodesInRealArchetype(list, simpleNode)//把树形结构转换成包含节点Data的list
+
+        //清除parentGuid，防止每次导出都变化
+        list[0].parentGuid = [-1, -1, -1, -1]
+
         //输出list
         let myPath = Path.join(curPath, filenameWithoutExt + '.arch')
         FS.writeFileSync(myPath, JSON.stringify(list))
@@ -265,7 +272,7 @@ function ExportCompatibilityInfo() {
     let len = smapJson.mapdata[0].ObjectsData.length
     for (let i = 0; i < len; i++) {
         const node = smapJson.mapdata[0].ObjectsData[i];
-        if (node.class == "cWorkspace"){
+        if (node.class == "cWorkspace") {
             compatibilityInfo.archetypeWorldspace = node
             break
         }
@@ -321,7 +328,7 @@ function Disassemble(projectPath) {
 }
 
 exports.BreakSmap = function (smapPath, inputProjectPath) {
-    
+
     projectPath = inputProjectPath
     let rawdata = FS.readFileSync(smapPath)
     //smapJson = JSON.parse(rawdata)

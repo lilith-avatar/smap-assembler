@@ -1,6 +1,6 @@
 # 欢迎使用 Assembler 2
 
-这是由 Stephen Zhou 独立开发的效率工具。
+这是由 [Stephen Zhou](https://github.com/stv1024)  独立开发的效率工具。
 
 该工具把smap打散成文件工程，或者把文件工程聚合成smap。
 
